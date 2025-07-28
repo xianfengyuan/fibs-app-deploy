@@ -1,0 +1,19 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata: 
+  name: fibs-app
+  namespace: argocd
+spec:
+  destination:
+    namespace: fibs-app
+    server: "https://kubernetes.default.svc"
+  project: default
+  source: 
+    path: helm/fibs-app
+    repoURL: "https://github.com/xianfengyuan/fibs-app-config.git"
+    targetRevision: main
+  syncPolicy:
+    automated:
+      prune: true
+    syncOptions:
+      - CreateNamespace=true
